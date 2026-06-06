@@ -325,6 +325,7 @@
 
   .heroInner {
     gap: 1.5rem;
+    padding-block: clamp(3.5rem, 8vh, 5rem);
   }
 
   .heroTitle {
@@ -332,22 +333,53 @@
   }
 
   .heroActions {
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.6rem;
   }
 
+  .heroActions .btn,
   .heroActions a {
-    width: 100%;
-    justify-content: center;
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0.75rem 1.15rem;
+    font-size: 0.88rem;
+  }
+
+  .heroDots {
+    margin-bottom: 1.6rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .heroDot {
+    width: 18px;
+    height: 5px;
+  }
+
+  .heroDotActive {
+    width: 28px;
   }
 
   .heroStats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding-top: 1.4rem;
   }
 
-  .heroStat {
-    justify-items: center;
-    text-align: center;
+  .statIcon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    margin-bottom: 0.3rem;
+  }
+
+  .statNum {
+    font-size: 1.6rem;
+  }
+
+  .statLabel {
+    font-size: 0.7rem;
+    line-height: 1.25;
   }
 
   .heroFloat {
@@ -580,21 +612,19 @@
 
 @media (max-width: 520px) {
   .kpis {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-    padding: 1rem;
-  }
-  .kpi + .kpi::before {
-    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+    padding: 1rem 0.85rem;
   }
   .kpi {
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 0.9rem;
-    text-align: left;
-    padding: 0.4rem 0.2rem;
-    border-top: 1px solid var(--line);
-    padding-top: 0.6rem;
+    padding: 0.4rem 0.25rem;
+  }
+  .kpiNum {
+    font-size: clamp(1.4rem, 6.5vw, 1.9rem);
+  }
+  .kpiLabel {
+    font-size: 0.7rem;
+    line-height: 1.25;
   }
 }
 
