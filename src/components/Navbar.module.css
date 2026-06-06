@@ -1,0 +1,235 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom-color: var(--line);
+  box-shadow: 0 4px 24px -10px rgba(10, 93, 46, 0.1);
+}
+
+.accent {
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-700) 0%, var(--gold-600) 50%, var(--green-700) 100%);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--green-800);
+  transition: opacity 0.2s ease;
+}
+
+.brand:hover {
+  opacity: 0.85;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--green-100);
+  box-shadow: 0 4px 12px -4px rgba(10, 93, 46, 0.25);
+  background: var(--white);
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.brand:hover .logo {
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--green-800);
+  letter-spacing: 0.04em;
+}
+
+.brandTag {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin-top: 2px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link {
+  position: relative;
+  display: inline-block;
+  padding: 0.65rem 1.15rem;
+  font-weight: 500;
+  font-size: 0.96rem;
+  color: var(--ink-700);
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--green-700), var(--gold-600));
+  transform: translateX(-50%);
+  transition: width 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.link:hover {
+  color: var(--green-800);
+}
+
+.link:hover::after {
+  width: 28px;
+}
+
+.linkActive {
+  color: var(--green-800);
+  background: var(--green-50);
+  font-weight: 600;
+}
+
+.linkActive::after {
+  width: 28px;
+}
+
+.toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  color: var(--green-800);
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.toggle:hover {
+  background: var(--green-50);
+  border-color: var(--green-700);
+}
+
+@media (max-width: 860px) {
+  .toggle { display: inline-flex; }
+
+  .nav {
+    position: absolute;
+    top: 79px;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 16px 32px -16px rgba(10, 93, 46, 0.18);
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .navOpen {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.75rem 1.25rem 1.5rem;
+  }
+
+  .link {
+    padding: 0.95rem 1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+  }
+
+  .link::after {
+    left: 1rem;
+    transform: none;
+  }
+
+  .link:hover::after,
+  .linkActive::after {
+    width: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .inner {
+    height: 68px;
+  }
+
+  .brand {
+    gap: 0.7rem;
+  }
+
+  .logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brandName {
+    font-size: 1rem;
+  }
+
+  .toggle {
+    width: 42px;
+    height: 42px;
+  }
+
+  .nav {
+    top: 71px;
+  }
+
+  .links {
+    padding-inline: 1rem;
+  }
+}

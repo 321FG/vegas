@@ -1,0 +1,61 @@
+.wrapper {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 20px 50px -30px rgba(10, 93, 46, 0.25);
+}
+
+.map {
+  width: 100%;
+  height: clamp(320px, 42vw, 520px);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(135deg, #fff 0%, var(--green-50) 100%);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--ink-700);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.dotGold {
+  background: var(--gold-600);
+  box-shadow: 0 0 0 2px rgba(10, 93, 46, 0.18);
+}
+
+.dotGreen {
+  background: var(--green-700);
+  box-shadow: 0 0 0 2px rgba(10, 93, 46, 0.18);
+}
+
+:global(.leaflet-tooltip) {
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  color: var(--green-800);
+  font-family: var(--font-sans);
+}
+
+:global(.leaflet-popup-content-wrapper) {
+  border-radius: 12px;
+}
+
+:global(.leaflet-control-attribution) {
+  font-size: 10px;
+}
