@@ -1,11 +1,12 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Brain,
   Bird,
   HeartHandshake,
   Baby,
-  Briefcase,
+  Sprout,
   Stethoscope,
   Wheat,
   Droplets,
@@ -19,7 +20,11 @@ import {
 import styles from './Home.module.css'
 import { staggerContainer, staggerItem, fadeIn } from '../motion.js'
 import { useAnimatedCounter } from '../hooks/useAnimatedCounter.js'
-import heroImg from '../assets/IMG-20260601-WA0190.jpg'
+import heroImg1 from '../assets/IMG-20260601-WA0190.jpg'
+import heroImg2 from '../assets/IMG-20260505-WA0033.jpg'
+import heroImg3 from '../assets/IMG-20260508-WA0028.jpg'
+import heroImg4 from '../assets/IMG-20260505-WA0036.jpg'
+import heroImg5 from '../assets/IMG-20260601-WA0186.jpg'
 import missionImg from '../assets/IMG-20260601-WA0186.jpg'
 import logoDCA from '../assets/DCA.png'
 import logoCR from '../assets/cr.png'
@@ -32,7 +37,7 @@ const domains = [
   { Icon: Bird, title: 'Cohésion sociale & paix', text: "Appui aux mécanismes locaux de paix, dialogue inter-communautaire, prévention des conflits." },
   { Icon: HeartHandshake, title: "Autonomisation des femmes", text: "Lutte contre les VBG, renforcement économique et social, dignité et droits." },
   { Icon: Baby, title: "Protection de l'enfance", text: "Sauvegarde des droits et de la dignité des enfants en contexte de crise." },
-  { Icon: Briefcase, title: 'Relèvement économique', text: "Activités génératrices de revenus, AVEC, micro-projets et entrepreneuriat." },
+  { Icon: Sprout, title: 'Relèvement économique', text: "Activités génératrices de revenus, AVEC, micro-projets et entrepreneuriat." },
   { Icon: Stethoscope, title: 'Santé & VIH/SIDA', text: "Sensibilisation, prévention et éducation sur les épidémies et pandémies." },
   { Icon: Wheat, title: 'Sécurité alimentaire', text: "Magasins de stockage, appui aux filières agricoles et relèvement rural." },
   { Icon: Droplets, title: 'WASH', text: "Eau, hygiène et assainissement en zone de conflit ou post-conflit." },
@@ -45,6 +50,8 @@ const timeline = [
   { year: '2019', text: "Ouverture du sous-bureau de Sibut. Renforcement du réseau communautaire avec leaders locaux et autorités." },
   { year: '2022–23', text: "Déploiement de 4 projets structurants avec DCA, Conciliation Resources et OXFAM. 26 agents mobilisés, 6 zones couvertes.", gold: true },
 ]
+
+const heroSlides = [heroImg1, heroImg2, heroImg3, heroImg4, heroImg5]
 
 const partners = [
   { name: 'DanChurchAid', short: 'DCA', logo: logoDCA },
@@ -70,17 +77,36 @@ function AnimatedStat({ value, label, Icon, suffix = '+' }) {
 }
 
 export default function Home() {
+  const [slide, setSlide] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSlide((s) => (s + 1) % heroSlides.length)
+    }, 6000)
+    return () => clearInterval(id)
+  }, [])
+
   return (
     <>
       {/* === HERO === */}
       <section className={styles.hero}>
-        <motion.div
-          className={styles.heroBg}
-          style={{ backgroundImage: `url(${heroImg})` }}
-          initial={{ scale: 1.18 }}
-          animate={{ scale: 1.05 }}
-          transition={{ duration: 14, ease: 'easeOut' }}
-        />
+        <div className={styles.heroSlider} aria-hidden="true">
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={slide}
+              className={styles.heroSlide}
+              style={{ backgroundImage: `url(${heroSlides[slide]})` }}
+              initial={{ opacity: 0, scale: 1.18 }}
+              animate={{ opacity: 1, scale: 1.05 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                opacity: { duration: 1.6, ease: 'easeInOut' },
+                scale: { duration: 7, ease: 'easeOut' },
+              }}
+            />
+          </AnimatePresence>
+        </div>
+        <div className={styles.heroOverlay} />
         <div className={styles.heroPattern} />
         <div className={`container ${styles.heroInner}`}>
           <motion.div
@@ -102,13 +128,27 @@ export default function Home() {
               développement durable.
             </motion.p>
             <motion.div className={styles.heroActions} variants={staggerItem}>
-              <Link to="/galerie" className="btn btn--primary">
+              <Link to="/galerie" className={`btn ${styles.heroCta}`}>
                 Découvrir nos actions
                 <ArrowRight size={18} />
               </Link>
               <Link to="/contact" className="btn btn--ghost">
                 Nous contacter
               </Link>
+            </motion.div>
+
+            <motion.div className={styles.heroDots} variants={staggerItem} role="tablist" aria-label="Diaporama">
+              {heroSlides.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === slide}
+                  aria-label={`Image ${i + 1}`}
+                  className={`${styles.heroDot} ${i === slide ? styles.heroDotActive : ''}`}
+                  onClick={() => setSlide(i)}
+                />
+              ))}
             </motion.div>
 
             <motion.div
@@ -176,6 +216,20 @@ export default function Home() {
                 <strong>Kemo, Ombelle M'Poko, Nana-Gribizi, Mbomou,
                 Ouham-Fafa et Lim-Pendé</strong>.
               </p>
+              <div className={styles.kpis}>
+                <div className={styles.kpi}>
+                  <span className={styles.kpiNum}>2016</span>
+                  <span className={styles.kpiLabel}>Année de création</span>
+                </div>
+                <div className={styles.kpi}>
+                  <span className={styles.kpiNum}>6<small>+</small></span>
+                  <span className={styles.kpiLabel}>Préfectures couvertes</span>
+                </div>
+                <div className={styles.kpi}>
+                  <span className={styles.kpiNum}>2018</span>
+                  <span className={styles.kpiLabel}>Programmes d'urgence</span>
+                </div>
+              </div>
               <div className={styles.quote}>
                 <Quote size={20} className={styles.quoteIcon} aria-hidden />
                 <p>
